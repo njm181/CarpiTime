@@ -15,8 +15,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class WeatherViewModel @ViewModelInject constructor(private var getDataUseCase: GetDataUseCase):BaseViewModel() {
 
-
-
     private var responseMutableLiveData: MutableLiveData<DataResult> = MutableLiveData()
 
     fun getDataResponse():MutableLiveData<DataResult>{
