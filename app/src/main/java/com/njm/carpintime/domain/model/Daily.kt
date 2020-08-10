@@ -13,7 +13,7 @@ data class Daily(
     var sunset: Int,
     var temp: Temp,
     var uvi: Double,
-    var weather: List<WeatherX>,
+    var weather: List<Weather>,
     var wind_deg: Int,
     var wind_speed: Double
 )

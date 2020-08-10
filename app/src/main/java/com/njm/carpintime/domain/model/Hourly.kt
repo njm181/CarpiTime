@@ -11,7 +11,7 @@ data class Hourly(
     var rain: Rain,
     var temp: Double,
     var visibility: Int,
-    var weather: List<WeatherXX>,
+    var weather: List<Weather>,
     var wind_deg: Int,
     var wind_speed: Double
 )

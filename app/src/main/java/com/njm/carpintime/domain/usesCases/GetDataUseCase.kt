@@ -1,16 +1,21 @@
 package com.njm.carpintime.domain.usesCases
 
 import com.njm.carpintime.data.repositoryImp.WeatherRepositoryImp
+import com.njm.carpintime.domain.model.DataResult
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.observers.DisposableSingleObserver
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
+
 
 class GetDataUseCase @Inject constructor(private val weatherRepositoryImp: WeatherRepositoryImp){
 
-    private var lat: Double = 0.0
-    private var lon: Double = 0.0
 
-    //Aca tengo que hacer la logica de negocio, el rx va en el viewmodel, tratar de que solo atrape el valor, aca deberia ir todo lo pesado
-
-    fun getData(lat: Double, lon: Double){
-        weatherRepositoryImp.getData(lat, lon)
+    fun getData(lat: Double, lon: Double): Single<DataResult> {
+        return weatherRepositoryImp.getData(lat, lon)
     }
+
 }

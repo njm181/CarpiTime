@@ -59,9 +59,4 @@ object WeatherServiceModule {
         return retrofit.create(WeatherApiService::class.java)
     }
 
-    @Provides
-    @Singleton
-    fun provideWeatherRepositoryImp(weatherApiService: WeatherApiService): WeatherRepositoryImp {
-        return WeatherRepositoryImp(weatherApiService)
-    }
 }
