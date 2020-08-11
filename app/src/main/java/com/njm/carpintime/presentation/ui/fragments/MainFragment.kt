@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.njm.carpintime.R
 import com.njm.carpintime.domain.model.DataResult
+import com.njm.carpintime.domain.model.GeoData
 import com.njm.carpintime.domain.utils.LAT
 import com.njm.carpintime.domain.utils.LONG
 import com.njm.carpintime.presentation.viewModels.WeatherViewModel
@@ -19,7 +20,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainFragment : Fragment() {
 
     private val weatherViewModel by activityViewModels<WeatherViewModel>()
-    private var dataResult: DataResult? = null
+    private var dataResult: Boolean = false
+    private lateinit var geoData: GeoData
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +31,14 @@ class MainFragment : Fragment() {
         weatherViewModel.getDataResponse().observe(this, Observer {
             dataResult = it
         })
+
+        weatherViewModel.getGeoDataResponse().observe(this, Observer {
+            geoData = it
+            geoData.hashCode()
+        })
+
+
+
 
     }
 
