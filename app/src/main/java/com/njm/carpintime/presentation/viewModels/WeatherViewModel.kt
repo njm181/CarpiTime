@@ -5,6 +5,7 @@ import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
 import com.njm.carpintime.domain.model.Current
 import com.njm.carpintime.domain.model.DataResult
 import com.njm.carpintime.domain.model.GeoData
@@ -14,7 +15,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class WeatherViewModel @ViewModelInject constructor(@Assisted private val state: SavedStateHandle,
-                                                    private var getDataUseCase: GetDataUseCase):BaseViewModel() {
+                                                    private var getDataUseCase: GetDataUseCase): ViewModel() {
 
     private var dataResultMutableLiveData: MutableLiveData<Boolean> = MutableLiveData()
     private var currentMutableLiveData: MutableLiveData<Current> = MutableLiveData()
@@ -23,14 +24,14 @@ class WeatherViewModel @ViewModelInject constructor(@Assisted private val state:
 
 
     fun getData(lat: Double, lon: Double) {
-        addDisposable(
-            getDataUseCase.getData(lat, lon)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe (
-                    {response -> onSuccess(response)},
-                    {error -> onError(error)}
-                )
+        getDataUseCase.getData(lat, lon)
+        getDataUseCase.execute(
+            onSuccess = {
+                onSuccess(it)
+            },
+            onError = {
+                onError(it)
+            }
         )
     }
 
@@ -64,4 +65,5 @@ class WeatherViewModel @ViewModelInject constructor(@Assisted private val state:
     fun getGeoDataResponse(): MutableLiveData<GeoData> {
         return geoDataMutableLiveData
     }
+
 }
