@@ -49,8 +49,5 @@ class MainFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
 
 }
