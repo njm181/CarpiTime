@@ -11,12 +11,7 @@ import com.njm.carpintime.domain.model.DataResult
 import com.njm.carpintime.domain.model.GeoData
 import com.njm.carpintime.domain.model.Hourly
 import com.njm.carpintime.domain.usesCases.GetDataUseCase
-import com.njm.carpintime.domain.usesCases.base.BaseUseCase
-import com.njm.carpintime.domain.utils.DisposableManager
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.schedulers.Schedulers
+import com.njm.carpintime.domain.usesCases.base.DisposableManager
 
 class WeatherViewModel @ViewModelInject constructor(@Assisted private val state: SavedStateHandle,
                                                     private var getDataUseCase: GetDataUseCase): ViewModel(){
