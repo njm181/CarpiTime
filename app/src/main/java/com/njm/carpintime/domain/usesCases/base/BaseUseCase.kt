@@ -11,13 +11,14 @@ abstract class BaseUseCase {
     fun disposeLast() {
         lastDisposable?.let {
             if (!it.isDisposed) {
-                it.dispose()
+                //it.dispose()
                 dispose()
             }
         }
     }
 
-    private fun dispose() {
+    fun dispose() {
         compositeDisposable.clear()
     }
+
 }
