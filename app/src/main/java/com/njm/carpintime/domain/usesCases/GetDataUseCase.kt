@@ -7,7 +7,7 @@ import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 
-class GetDataUseCase @Inject constructor(private val WeatherRepository: WeatherRepository): SingleBaseUseCase<DataResult>(){
+class GetDataUseCase @Inject constructor(private val weatherRepository: WeatherRepository): SingleBaseUseCase<DataResult>(){
 
 
     private var lat: Double = 0.0
@@ -19,7 +19,7 @@ class GetDataUseCase @Inject constructor(private val WeatherRepository: WeatherR
     }
 
     override fun buildUseCaseSingle(): Single<DataResult> {
-        return WeatherRepository.getData(lat, lon)
+        return weatherRepository.getData(lat, lon)
     }
 
 }
