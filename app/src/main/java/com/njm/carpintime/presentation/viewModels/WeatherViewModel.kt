@@ -12,6 +12,8 @@ import com.njm.carpintime.domain.model.GeoData
 import com.njm.carpintime.domain.model.Hourly
 import com.njm.carpintime.domain.usesCases.GetDataUseCase
 import com.njm.carpintime.domain.usesCases.base.DisposableManager
+import com.njm.carpintime.domain.utils.excepction.ParametersZeroException
+import java.lang.Exception
 
 class WeatherViewModel @ViewModelInject constructor(@Assisted private val state: SavedStateHandle,
                                                     private var getDataUseCase: GetDataUseCase): ViewModel(){
@@ -23,6 +25,10 @@ class WeatherViewModel @ViewModelInject constructor(@Assisted private val state:
 
 
     fun getData(lat: Double, lon: Double) {
+        if(lat == 0.0 || lon == 0.0){
+            var exception: ParametersZeroException = ParametersZeroException("Algun parametro o ambos son iguales a cero (LAT, LONG)")
+            onError(exception)
+        }
         getDataUseCase.getData(lat, lon)
         getDataUseCase.execute(
             onSuccess = {

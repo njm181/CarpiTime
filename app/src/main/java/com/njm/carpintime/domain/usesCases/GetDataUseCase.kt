@@ -9,7 +9,6 @@ import javax.inject.Inject
 
 class GetDataUseCase @Inject constructor(private val weatherRepository: WeatherRepository): SingleBaseUseCase<DataResult>(){
 
-
     private var lat: Double = 0.0
     private var lon: Double = 0.0
 

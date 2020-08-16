@@ -45,15 +45,17 @@ class GetDataUseCaseTest{
     @Test
     fun resultadoRepositoryIsNotNull(){
         `when`(getDataUseCase?.buildUseCaseSingle()).thenReturn(data)
+        var response = getDataUseCase?.buildUseCaseSingle()
+        Assert.assertNotNull(response)
     }
 
     @Test
     fun resultadoConParametrosEnCero(){
-        getDataUseCase?.getData(LAT, LONG)
-        `when`(getDataUseCase?.buildUseCaseSingle()).thenReturn(data)
+        `when`(weatherRepository?.getData(0.0, 0.0)).thenReturn(null)
         var response = getDataUseCase?.buildUseCaseSingle()
+        Assert.assertNull(response)
         //Assert.assertEquals(response, data)
-        Assert.assertNotNull(response)
+        //Assert.assertNotNull(getDataUseCase?.getData(1.0,1.0))
     }
 
 
