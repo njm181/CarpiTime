@@ -25,19 +25,19 @@ class WeatherViewModel @ViewModelInject constructor(@Assisted private val state:
 
 
     fun getData(lat: Double, lon: Double) {
-        if(lat == 0.0 || lon == 0.0){
-            var exception: ParametersZeroException = ParametersZeroException("Algun parametro o ambos son iguales a cero (LAT, LONG)")
-            onError(exception)
+        try {
+            getDataUseCase.getData(lat, lon)
+            getDataUseCase.execute(
+                onSuccess = {
+                    onSuccess(it)
+                },
+                onError = {
+                    onError(it)
+                }
+            )
+        }catch (e: ParametersZeroException){
+                onError(e)
         }
-        getDataUseCase.getData(lat, lon)
-        getDataUseCase.execute(
-            onSuccess = {
-                onSuccess(it)
-            },
-            onError = {
-                onError(it)
-            }
-        )
     }
 
     private fun onSuccess(response: DataResult) {
@@ -49,6 +49,7 @@ class WeatherViewModel @ViewModelInject constructor(@Assisted private val state:
 
     private fun onError(error: Throwable) {
         Log.e("ERROR", "get data failure: "+ error.message)
+        print(error.message)
         dataResultMutableLiveData.value = false
         currentMutableLiveData.value = null
         hourlyMutableLiveData.value = null

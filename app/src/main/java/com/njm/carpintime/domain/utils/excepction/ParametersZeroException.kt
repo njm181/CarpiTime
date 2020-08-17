@@ -5,5 +5,6 @@ import java.lang.Exception
 /**
 Created by Nicolas Molina 16/8/2020
  */
-class ParametersZeroException constructor(message: String): Exception(message) {
+class ParametersZeroException: Exception() {
+     override val message: String = "Algun parametro o ambos son iguales a cero (LAT, LONG)"
 }
