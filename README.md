@@ -12,3 +12,5 @@
 			.Clean architecture
 			.Material Design
 			.Room
+            .Navigation Component
+            .Motion Layout

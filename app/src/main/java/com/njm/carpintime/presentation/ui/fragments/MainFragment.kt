@@ -27,7 +27,7 @@ class MainFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        weatherViewModel.getData(LAT, LONG)
+        /*weatherViewModel.getData(LAT, LONG)
         weatherViewModel.getDataResponse().observe(this, Observer {
             dataResult = it
         })
@@ -35,7 +35,7 @@ class MainFragment : Fragment() {
         weatherViewModel.getGeoDataResponse().observe(this, Observer {
             geoData = it
             geoData.hashCode()
-        })
+        })*/
 
 
 

@@ -75,7 +75,6 @@ class WeatherViewModel @ViewModelInject constructor(@Assisted private val state:
     override fun onCleared() {
         super.onCleared()
         DisposableManager.disposeDisposable()
-
     }
 
 }
