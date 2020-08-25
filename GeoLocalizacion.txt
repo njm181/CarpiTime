@@ -113,3 +113,20 @@ class MainActivity : AppCompatActivity() {
     </application>
 
 </manifest>
+////////////////////////////////////////////////////////////
+override fun getPermisos() {
+        if (!checkPermission()) {
+            requestPermission()
+        } else geoLocalizacion?.currentLoc()
+    }
+
+    private fun checkPermission(): Boolean { //ACCESS_COARSE_LOCATION
+        val result = ContextCompat.checkSelfPermission(applicationContext, permission.ACCESS_FINE_LOCATION)
+        val result0 = ContextCompat.checkSelfPermission(applicationContext, permission.ACCESS_COARSE_LOCATION)
+        return result == PackageManager.PERMISSION_GRANTED && result0 == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestPermission() {
+        ActivityCompat.requestPermissions(this, arrayOf(permission.ACCESS_FINE_LOCATION, permission.ACCESS_COARSE_LOCATION),
+                PERMISSION_REQUEST_CODE)
+    }
