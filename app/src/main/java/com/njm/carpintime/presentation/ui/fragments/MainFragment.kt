@@ -37,9 +37,6 @@ class MainFragment : Fragment() {
             geoData.hashCode()
         })*/
 
-
-
-
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +45,13 @@ class MainFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
+
+    private fun initObservable(){
+        weatherViewModel.getDataResponse().observe(this, Observer {
+            dataResult = it
+        })
+    }
+
 
 
 }

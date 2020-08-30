@@ -4,41 +4,141 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sunny_background"
     tools:context=".presentation.ui.fragments.MainFragment">
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/nombre_dia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_mono"
+        android:hint="DiaSemana"
+        android:textSize="22dp"
+        app:layout_constraintEnd_toStartOf="@+id/linea_vertical_derecha"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/linea_vertical_izquierda"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/hora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_mono"
+        android:hint="Hora"
+        android:textSize="52dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintEnd_toEndOf="@+id/nombre_dia"
+        app:layout_constraintStart_toStartOf="@+id/nombre_dia"
+        app:layout_constraintTop_toBottomOf="@+id/nombre_dia"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/am_pm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:fontFamily="@font/roboto_mono"
+        android:hint="am"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/hora"
+        app:layout_constraintStart_toEndOf="@+id/hora"
+        app:layout_constraintTop_toBottomOf="@+id/nombre_dia" />
+
+    <ImageView
+        android:id="@+id/imagen_clima"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/valor_temperatura"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="20"
-        android:visibility="gone"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="@+id/linea_vertical_central"
+        app:layout_constraintEnd_toStartOf="@+id/linea_vertical_central"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/linea_vertical_izquierda"
+        app:layout_constraintTop_toTopOf="@+id/linea_vertical_central" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/grados"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="°C"
-        android:textSize="24sp"
-        android:visibility="gone"
+        android:hint="°c"
+        android:textSize="35sp"
+        app:layout_constraintBottom_toBottomOf="@+id/valor_temperatura"
         app:layout_constraintStart_toEndOf="@+id/valor_temperatura"
         app:layout_constraintTop_toTopOf="@+id/valor_temperatura" />
 
+    <View
+        android:id="@+id/linea_vertical_central"
+        android:layout_width="2dp"
+        android:layout_height="60dp"
+        android:background="@color/gris"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/linea_vertical_derecha"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="@+id/linea_vertical_izquierda"
+        app:layout_constraintTop_toBottomOf="@+id/imagen_clima" />
+
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/fecha_hora"
+        android:id="@+id/estado_clima"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_mono"
-        android:hint="Fecha y Hora"
-        android:visibility="gone"
-        android:textSize="22dp"
-        app:layout_constraintEnd_toEndOf="@+id/grados"
-        app:layout_constraintStart_toStartOf="@+id/valor_temperatura"
-        app:layout_constraintTop_toBottomOf="@+id/valor_temperatura" />
+        android:layout_marginStart="8dp"
+        android:hint="Estado"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@+id/linea_vertical_central"
+        app:layout_constraintEnd_toStartOf="@+id/linea_vertical_derecha"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/linea_vertical_central"
+        app:layout_constraintTop_toTopOf="@+id/linea_vertical_central" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/ciudad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Ciudad"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/estado_clima"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/estado_clima"
+        app:layout_constraintTop_toBottomOf="@+id/estado_clima" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/linea_vertical_izquierda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/linea_vertical_derecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
