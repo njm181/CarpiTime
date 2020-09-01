@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.add(R.id.main_fragment_container, mainFragment)
         fragmentTransaction.add(R.id.geolocation_fragment_container, mapsFragment)
         fragmentTransaction.commit()
-        
+
     }
 
 }
