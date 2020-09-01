@@ -11,12 +11,12 @@
         android:id="@+id/nombre_dia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/roboto_mono"
         android:hint="DiaSemana"
         android:textSize="22dp"
         app:layout_constraintEnd_toStartOf="@+id/linea_vertical_derecha"
-        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/linea_vertical_izquierda"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,8 +30,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toEndOf="@+id/nombre_dia"
         app:layout_constraintStart_toStartOf="@+id/nombre_dia"
-        app:layout_constraintTop_toBottomOf="@+id/nombre_dia"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/nombre_dia" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/am_pm"
@@ -43,17 +42,18 @@
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="@+id/hora"
         app:layout_constraintStart_toEndOf="@+id/hora"
-        app:layout_constraintTop_toBottomOf="@+id/nombre_dia" />
+        app:layout_constraintTop_toTopOf="@+id/hora" />
 
     <ImageView
         android:id="@+id/imagen_clima"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         android:background="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+        app:layout_constraintEnd_toStartOf="@+id/linea_vertical_derecha"
+        app:layout_constraintStart_toStartOf="@+id/linea_vertical_izquierda"
+        app:layout_constraintTop_toBottomOf="@+id/hora" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/valor_temperatura"
@@ -107,10 +107,12 @@
         android:layout_height="wrap_content"
         android:hint="Ciudad"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/estado_clima"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/estado_clima"
-        app:layout_constraintTop_toBottomOf="@+id/estado_clima" />
+        app:layout_constraintTop_toBottomOf="@+id/estado_clima"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/linea_vertical_izquierda"
