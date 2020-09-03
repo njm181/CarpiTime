@@ -15,7 +15,7 @@ import com.njm.carpintime.R
 
 class MapsFragment : Fragment(), OnMapReadyCallback {
 
-
+//http://www.londatiga.net/it/programming/android/how-to-make-android-map-scrollable-inside-a-scrollview-layout/
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
