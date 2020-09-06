@@ -1,21 +1,28 @@
-package com.njm.carpintime.domain.usesCases.currentWeather
+package com.njm.carpintime.domain.usesCases.currentWeatherTest
 
+import org.junit.Assert
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.junit.MockitoJUnitRunner
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.inject.Inject
 
 /**
 Created by Nicolas Molina 6/9/2020
  */
-class GetDayOfWeekUseCase @Inject constructor() {
+@RunWith(MockitoJUnitRunner.Silent::class)
+class GetDayOfWeekUseCaseTest {
 
-    fun getDayOfWeek(date: Int): String {
+
+    @Test
+    fun getDayOfWeek() {
+        val date = 1599421387
         val parseTimeUnixToDate = Date(date * 1000L)
         val day = SimpleDateFormat("EEEE", Locale.US)
         day.timeZone = TimeZone.getTimeZone("GMT-3")
         var weekDay = day.format(parseTimeUnixToDate)
 
-        weekDay = when(weekDay){
+        weekDay = when (weekDay) {
             "Monday" -> "Lunes"
             "Tuesday" -> "Martes"
             "Wednesday" -> "Miercoles"
@@ -25,6 +32,6 @@ class GetDayOfWeekUseCase @Inject constructor() {
             "Sunday" -> "Domingo"
             else -> ""
         }
-        return weekDay
+        Assert.assertEquals("Domingo", weekDay)
     }
 }
