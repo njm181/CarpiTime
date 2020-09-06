@@ -2,12 +2,10 @@ package com.njm.carpintime.presentation.ui.activities
 
 import android.os.Bundle
 import android.view.MotionEvent
-import android.view.View
-import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.njm.carpintime.R
@@ -20,6 +18,9 @@ import com.njm.carpintime.presentation.ui.fragments.MapsFragment
 import com.njm.carpintime.presentation.viewModels.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.SimpleDateFormat
+import java.time.DayOfWeek
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -38,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         initObservable()
         getWeatherData()
         disallowScrollToMap()
-
     }
 
     private fun initObservable(){

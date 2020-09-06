@@ -16,7 +16,6 @@ abstract class SingleBaseUseCase <T>{
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(onSuccess, onError))
-
     }
 
 
