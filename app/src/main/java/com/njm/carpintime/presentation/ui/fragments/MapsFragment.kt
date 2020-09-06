@@ -5,17 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.*
+import com.google.android.gms.maps.GoogleMap.MAP_TYPE_NORMAL
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.njm.carpintime.R
 
+
 class MapsFragment : Fragment(), OnMapReadyCallback {
 
-//http://www.londatiga.net/it/programming/android/how-to-make-android-map-scrollable-inside-a-scrollview-layout/
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,8 +26,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
+            .findFragmentById(R.id.map) as SupportMapFragment?
+        mapFragment?.getMapAsync(this)
+
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {
@@ -36,7 +36,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         googleMap?.addMarker(
             MarkerOptions()
                 .position(sydney)
-                .title("Marker in Sydney"))
+                .title("Marker in Sydney")
+        )
         googleMap?.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
 

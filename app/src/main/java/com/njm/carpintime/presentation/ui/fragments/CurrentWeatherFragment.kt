@@ -15,23 +15,11 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CurrentWeatherFragment : Fragment() {
 
-    private val weatherViewModel by activityViewModels<WeatherViewModel>()
-    private var dataResult: Boolean = false
-    private lateinit var geoData: GeoData
-
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        /*weatherViewModel.getData(LAT, LONG)
-        weatherViewModel.getDataResponse().observe(this, Observer {
-            dataResult = it
-        })
 
-        weatherViewModel.getGeoDataResponse().observe(this, Observer {
-            geoData = it
-            geoData.hashCode()
-        })*/
 
     }
     override fun onCreateView(
@@ -42,12 +30,21 @@ class CurrentWeatherFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_current_weather, container, false)
     }
 
-    private fun initObservable(){
-        weatherViewModel.getDataResponse().observe(this, Observer {
-            dataResult = it
-        })
-    }
-
-
-
 }
+//    private val weatherViewModel by activityViewModels<WeatherViewModel>()
+//    private var dataResult: Boolean = false
+//    private lateinit var geoData: GeoData
+/*weatherViewModel.getData(LAT, LONG)
+    weatherViewModel.getDataResponse().observe(this, Observer {
+        dataResult = it
+    })
+
+    weatherViewModel.getGeoDataResponse().observe(this, Observer {
+        geoData = it
+        geoData.hashCode()
+    })*/
+/*private fun initObservable(){
+    weatherViewModel.getDataResponse().observe(this, Observer {
+        dataResult = it
+    })
+}*/
