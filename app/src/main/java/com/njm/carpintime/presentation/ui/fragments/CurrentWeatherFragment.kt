@@ -1,18 +1,18 @@
 package com.njm.carpintime.presentation.ui.fragments
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.njm.carpintime.R
 import com.njm.carpintime.domain.model.Weather
-import com.njm.carpintime.domain.utils.ICON
-import com.njm.carpintime.domain.utils.STATUS_DAY
-import com.njm.carpintime.domain.utils.STATUS_NIGHT
+import com.njm.carpintime.domain.utils.*
 import com.njm.carpintime.presentation.viewModels.CurrentWeatherViewModel
 import com.njm.carpintime.presentation.viewModels.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,7 +30,6 @@ class CurrentWeatherFragment : Fragment() {
         initObservable()
 
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,19 +54,18 @@ class CurrentWeatherFragment : Fragment() {
     }
 
     private fun setIconAndBackgroundColor(weather: List<Weather>) {
-        var dayOrNigth: Boolean
+        var dayOrNight: Boolean
         for (it in weather){
-            dayOrNigth = setIconWeather(it.icon)
-            setBackgroundCard(it.main, dayOrNigth)
+            dayOrNight = setIconWeather(it.icon)
+            setBackgroundCard(it.main, dayOrNight)
         }
 
     }
 
-    private fun setBackgroundCard(mainDescription: String, dayOrNight: Boolean) {
-        if(dayOrNight){
-            card_current_weather
+    private fun setBackgroundCard(mainDescription: String, statusDay: Boolean) {
+        if(statusDay){
         }else{
-            findResource(mainDescription, null, dayOrNight)
+            card_current_weather.setBackgroundResource(findResource(mainDescription, null, statusDay))
         }
     }
 
@@ -81,8 +79,9 @@ class CurrentWeatherFragment : Fragment() {
         return check.contains("d")
     }
 
-    private fun findResource(resourceName: String, type: String?, dayOrNight: Boolean?): Int {
-        var resourceIdentifier: Int
+    /**agregar un parametro mas que filtre si es dia o noche d o n para adjuntar a lal ruta absoluta de la imagen*/
+    private fun findResource(resourceName: String, type: String?, statusDay: Boolean?): Int {
+        val resourceIdentifier: Int
         when {
             type != null -> {
                 resourceIdentifier = resources.getIdentifier(
@@ -91,22 +90,21 @@ class CurrentWeatherFragment : Fragment() {
                     ctx.packageName
                 )
             }
-            dayOrNight!! -> {
+            statusDay!! -> {
                 resourceIdentifier = resources.getIdentifier(
-                    "$resourceName$STATUS_DAY",
+                    resourceName.toLowerCase()+DAY,
                     "drawable",
                     ctx.packageName
                 )
             }
             else -> {
                 resourceIdentifier = resources.getIdentifier(
-                    "$resourceName$STATUS_NIGHT",
+                    resourceName.toLowerCase()+NIGHT,
                     "drawable",
                     ctx.packageName
                 )
             }
         }
-
         return resourceIdentifier
     }
 

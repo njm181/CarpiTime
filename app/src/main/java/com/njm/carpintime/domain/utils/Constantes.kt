@@ -6,5 +6,5 @@ const val LAT: Double = -34.591825
 const val LONG: Double = -58.497258
 const val CELSIUS: String = "metric"
 const val ICON: String = "ic_"
-const val STATUS_DAY: String = "_day"
-const val STATUS_NIGHT: String = "_night"
+const val DAY: String = "d"
+const val NIGHT: String = "n"
