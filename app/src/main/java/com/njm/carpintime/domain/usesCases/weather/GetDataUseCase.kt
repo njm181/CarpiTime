@@ -1,4 +1,4 @@
-package com.njm.carpintime.domain.usesCases
+package com.njm.carpintime.domain.usesCases.weather
 
 import com.njm.carpintime.domain.model.DataResult
 import com.njm.carpintime.domain.repository.WeatherRepository

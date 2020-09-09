@@ -23,6 +23,7 @@ class CurrentWeatherFragment : Fragment() {
     private val weatherViewModel by activityViewModels<WeatherViewModel>()
     private val currentWeatherViewModel by activityViewModels<CurrentWeatherViewModel>()
     private lateinit var ctx: Context
+    var dayOrNight: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,56 +40,35 @@ class CurrentWeatherFragment : Fragment() {
 
     private fun initObservable(){
         weatherViewModel.getCurrentResponse().observe(this, androidx.lifecycle.Observer {
-            currentWeatherViewModel.getDayOfWeekUseCase(it.dt)
-
-            currentWeatherViewModel.getDayOfWeekResponse().observe(this, Observer { dia ->
-                nombre_dia.text = dia
-            })
-            currentWeatherViewModel.getCurrentTimeUseCase(it.dt)
-            currentWeatherViewModel.getCurrentTimeResponse().observe(this, Observer { time ->
-                hora.text = time
-            })
             setData(it)
         })
-        weatherViewModel.getDataResponse().observe(this, Observer {
-            parseCityName(it.timezone)
+
+        currentWeatherViewModel.getCurrentTimeResponse().observe(this, Observer { time ->
+            hora.text = time
         })
-    }
 
-    private fun parseCityName(timezone: String) {
-        val city = timezone.split("America/Argentina/")
+        currentWeatherViewModel.getDayOfWeekResponse().observe(this, Observer { dia ->
+            nombre_dia.text = dia
+        })
 
-        if(city[1].contains("_")){
-            val cityFormat = city[1].split("_")
-            val firstPart = cityFormat[0]
-            val secondPart = cityFormat[1]
-            ciudad.text = "$firstPart $secondPart"
-        }else{
-            ciudad.text = city[1].toString()
-        }
+        weatherViewModel.parseCityNameResponse().observe(this, Observer {
+            ciudad.text = it
+        })
+
+        currentWeatherViewModel.getStatusCurrentWeatherResponse().observe(this, Observer { status ->
+            estado_clima.text = status
+        })
     }
 
     private fun setData(current: Current) {
-        var dayOrNight: Boolean
-        val df = DecimalFormat("#.#")
-        valor_temperatura.text = df.format(current.temp).toString()
+        currentWeatherViewModel.getDayOfWeek(current.dt)
+        currentWeatherViewModel.getCurrentTime(current.dt)
+        setTemperature(current.temp)
         for (it in current.weather){
             dayOrNight = setIconWeather(it.icon)
             card_current_weather.setBackgroundResource(findResource(it.main, null ,dayOrNight))
-            setStatusWeather(it.main)
+            currentWeatherViewModel.setStatusCurrentWeather(it.main)
         }
-    }
-
-    private fun setStatusWeather(status: String) {
-        var statusWeather: String = when(status){
-            CLOUDS -> NUBLADO
-            THUNDERSTORM -> TORMENTA
-            DRIZZLE -> LLOVIZNA
-            RAIN -> LLUVIA
-            CLEAR -> DESPEJADO
-            else -> ""
-        }
-        estado_clima.text = statusWeather
     }
 
     private fun setIconWeather(iconName: String): Boolean {
@@ -127,6 +107,11 @@ class CurrentWeatherFragment : Fragment() {
             }
         }
         return resourceIdentifier
+    }
+
+    private fun setTemperature(temperature: Double){
+        val df = DecimalFormat("#.#")
+        valor_temperatura.text = df.format(temperature).toString()
     }
 
     override fun onAttach(context: Context) {

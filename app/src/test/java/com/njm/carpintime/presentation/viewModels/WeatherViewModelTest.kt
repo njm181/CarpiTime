@@ -2,11 +2,8 @@ package com.njm.carpintime.presentation.viewModels
 
 import androidx.lifecycle.SavedStateHandle
 import com.njm.carpintime.domain.model.DataResult
-import com.njm.carpintime.domain.usesCases.GetDataUseCase
-import com.njm.carpintime.domain.usesCases.GetDataUseCaseTest
-import com.njm.carpintime.domain.utils.excepction.ParametersZeroException
+import com.njm.carpintime.domain.usesCases.weather.GetDataUseCase
 import io.reactivex.rxjava3.core.Single
-import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -16,7 +13,6 @@ import org.mockito.BDDMockito.given
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
-import java.lang.Exception
 
 /**
  * Created by Nicolas Molina 16/8/2020

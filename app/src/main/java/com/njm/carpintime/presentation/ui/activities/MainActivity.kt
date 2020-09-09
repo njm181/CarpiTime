@@ -44,8 +44,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initObservable(){
-        weatherViewModel.getDataResponse().observe(this, Observer { it ->
+        weatherViewModel.getDataResponse().observe(this, Observer {
             dataResult = it
+            weatherViewModel.parseCityName(it.timezone)
         })
     }
     private fun getWeatherData(){

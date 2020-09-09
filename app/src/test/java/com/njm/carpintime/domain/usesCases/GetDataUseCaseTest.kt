@@ -2,6 +2,7 @@ package com.njm.carpintime.domain.usesCases
 
 import com.njm.carpintime.domain.model.DataResult
 import com.njm.carpintime.domain.repository.WeatherRepository
+import com.njm.carpintime.domain.usesCases.weather.GetDataUseCase
 import com.njm.carpintime.domain.utils.excepction.ParametersZeroException
 import io.reactivex.rxjava3.core.Single
 import junit.framework.Assert.assertNotNull

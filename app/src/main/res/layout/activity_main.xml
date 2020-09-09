@@ -19,19 +19,19 @@
                 <FrameLayout
                     android:id="@+id/currentWeather_fragment_container"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="350dp"
                     android:layout_marginBottom="8dp"/>
 
                 <FrameLayout
                     android:id="@+id/extendedWeather_fragment_container"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="350dp"
                     android:layout_marginBottom="8dp"/>
 
                 <RelativeLayout
                     android:id="@+id/map_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp">
+                    android:layout_height="350dp">
 
                         <FrameLayout
                             android:id="@+id/geolocation_fragment_container"

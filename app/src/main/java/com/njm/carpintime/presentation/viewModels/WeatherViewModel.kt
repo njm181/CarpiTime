@@ -10,20 +10,24 @@ import com.njm.carpintime.domain.model.Current
 import com.njm.carpintime.domain.model.DataResult
 import com.njm.carpintime.domain.model.GeoData
 import com.njm.carpintime.domain.model.Hourly
-import com.njm.carpintime.domain.usesCases.GetDataUseCase
+import com.njm.carpintime.domain.usesCases.weather.GetDataUseCase
 import com.njm.carpintime.domain.usesCases.base.DisposableManager
+import com.njm.carpintime.domain.usesCases.weather.ParseCityNameUseCase
 import com.njm.carpintime.domain.utils.excepction.ParametersZeroException
-import java.lang.Exception
 
 class WeatherViewModel @ViewModelInject constructor(@Assisted private val state: SavedStateHandle,
-                                                    private var getDataUseCase: GetDataUseCase): ViewModel(){
+                                                    private var getDataUseCase: GetDataUseCase,
+                                                    private var parseCityNameUseCase: ParseCityNameUseCase
+): ViewModel(){
 
+    //Varaibles
     private var dataResultMutableLiveData: MutableLiveData<DataResult> = MutableLiveData()
     private var currentMutableLiveData: MutableLiveData<Current> = MutableLiveData()
     private var hourlyMutableLiveData: MutableLiveData<List<Hourly>> = MutableLiveData()
     private var geoDataMutableLiveData: MutableLiveData<GeoData> = MutableLiveData()
+    private var parseCityMutableLiveData: MutableLiveData<String> = MutableLiveData()
 
-
+    //Functions
     fun getData(lat: Double, lon: Double) {
         try {
             getDataUseCase.getData(lat, lon)
@@ -56,6 +60,12 @@ class WeatherViewModel @ViewModelInject constructor(@Assisted private val state:
         geoDataMutableLiveData.value = null
     }
 
+    fun parseCityName(cityName: String){
+        parseCityMutableLiveData.value = parseCityNameUseCase.parseCityName(cityName)
+    }
+
+
+    //Responses
     fun getDataResponse(): MutableLiveData<DataResult> {
         return dataResultMutableLiveData
     }
@@ -72,6 +82,11 @@ class WeatherViewModel @ViewModelInject constructor(@Assisted private val state:
         return geoDataMutableLiveData
     }
 
+    fun parseCityNameResponse(): MutableLiveData<String>{
+        return parseCityMutableLiveData
+    }
+
+    //limpiar observers
     override fun onCleared() {
         super.onCleared()
         DisposableManager.disposeDisposable()
