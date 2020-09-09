@@ -1,22 +1,21 @@
 package com.njm.carpintime.presentation.ui.fragments
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.njm.carpintime.R
-import com.njm.carpintime.domain.model.Weather
+import com.njm.carpintime.domain.model.Current
 import com.njm.carpintime.domain.utils.*
 import com.njm.carpintime.presentation.viewModels.CurrentWeatherViewModel
 import com.njm.carpintime.presentation.viewModels.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_current_weather.*
+import java.text.DecimalFormat
 
 
 @AndroidEntryPoint
@@ -49,24 +48,47 @@ class CurrentWeatherFragment : Fragment() {
             currentWeatherViewModel.getCurrentTimeResponse().observe(this, Observer { time ->
                 hora.text = time
             })
-            setIconAndBackgroundColor(it.weather)
+            setData(it)
+        })
+        weatherViewModel.getDataResponse().observe(this, Observer {
+            parseCityName(it.timezone)
         })
     }
 
-    private fun setIconAndBackgroundColor(weather: List<Weather>) {
-        var dayOrNight: Boolean
-        for (it in weather){
-            dayOrNight = setIconWeather(it.icon)
-            setBackgroundCard(it.main, dayOrNight)
-        }
+    private fun parseCityName(timezone: String) {
+        val city = timezone.split("America/Argentina/")
 
+        if(city[1].contains("_")){
+            val cityFormat = city[1].split("_")
+            val firstPart = cityFormat[0]
+            val secondPart = cityFormat[1]
+            ciudad.text = "$firstPart $secondPart"
+        }else{
+            ciudad.text = city[1].toString()
+        }
     }
 
-    private fun setBackgroundCard(mainDescription: String, statusDay: Boolean) {
-        if(statusDay){
-        }else{
-            card_current_weather.setBackgroundResource(findResource(mainDescription, null, statusDay))
+    private fun setData(current: Current) {
+        var dayOrNight: Boolean
+        val df = DecimalFormat("#.#")
+        valor_temperatura.text = df.format(current.temp).toString()
+        for (it in current.weather){
+            dayOrNight = setIconWeather(it.icon)
+            card_current_weather.setBackgroundResource(findResource(it.main, null ,dayOrNight))
+            setStatusWeather(it.main)
         }
+    }
+
+    private fun setStatusWeather(status: String) {
+        var statusWeather: String = when(status){
+            CLOUDS -> NUBLADO
+            THUNDERSTORM -> TORMENTA
+            DRIZZLE -> LLOVIZNA
+            RAIN -> LLUVIA
+            CLEAR -> DESPEJADO
+            else -> ""
+        }
+        estado_clima.text = statusWeather
     }
 
     private fun setIconWeather(iconName: String): Boolean {
@@ -76,10 +98,9 @@ class CurrentWeatherFragment : Fragment() {
     }
 
     private fun isDayOrNight(check: String): Boolean{
-        return check.contains("d")
+        return check.contains(DAY)
     }
 
-    /**agregar un parametro mas que filtre si es dia o noche d o n para adjuntar a lal ruta absoluta de la imagen*/
     private fun findResource(resourceName: String, type: String?, statusDay: Boolean?): Int {
         val resourceIdentifier: Int
         when {

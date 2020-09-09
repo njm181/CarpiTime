@@ -1,5 +1,6 @@
 package com.njm.carpintime.presentation.ui.activities
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MotionEvent
 import android.widget.Toast
@@ -9,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.njm.carpintime.R
+import com.njm.carpintime.domain.model.DataResult
 import com.njm.carpintime.domain.model.GeoData
 import com.njm.carpintime.domain.utils.LAT
 import com.njm.carpintime.domain.utils.LONG
@@ -28,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
      //by activityViewModels<WeatherViewModel>()
     private lateinit var weatherViewModel: WeatherViewModel
-    private var dataResult: Boolean = false
+    private lateinit var dataResult: DataResult
     private lateinit var geoData: GeoData
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initObservable(){
-        weatherViewModel.getDataResponse().observe(this, Observer {
+        weatherViewModel.getDataResponse().observe(this, Observer { it ->
             dataResult = it
         })
     }
@@ -58,9 +60,9 @@ class MainActivity : AppCompatActivity() {
         val fragmentManager: FragmentManager = supportFragmentManager
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
 
-        var mainFragment = CurrentWeatherFragment()
-        var mapsFragment = MapsFragment()
-        var extendedWeatherFragment = ExtendedWeatherFragment()
+        val mainFragment = CurrentWeatherFragment()
+        val mapsFragment = MapsFragment()
+        val extendedWeatherFragment = ExtendedWeatherFragment()
 
         fragmentTransaction.add(R.id.currentWeather_fragment_container, mainFragment)
         fragmentTransaction.add(R.id.geolocation_fragment_container, mapsFragment)
@@ -68,6 +70,7 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun disallowScrollToMap(){
         transparent_image.setOnTouchListener { v, event ->
             when (event.action) {

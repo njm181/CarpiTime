@@ -18,7 +18,7 @@ import java.lang.Exception
 class WeatherViewModel @ViewModelInject constructor(@Assisted private val state: SavedStateHandle,
                                                     private var getDataUseCase: GetDataUseCase): ViewModel(){
 
-    private var dataResultMutableLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    private var dataResultMutableLiveData: MutableLiveData<DataResult> = MutableLiveData()
     private var currentMutableLiveData: MutableLiveData<Current> = MutableLiveData()
     private var hourlyMutableLiveData: MutableLiveData<List<Hourly>> = MutableLiveData()
     private var geoDataMutableLiveData: MutableLiveData<GeoData> = MutableLiveData()
@@ -41,7 +41,7 @@ class WeatherViewModel @ViewModelInject constructor(@Assisted private val state:
     }
 
     private fun onSuccess(response: DataResult) {
-        dataResultMutableLiveData.value = true
+        dataResultMutableLiveData.value = response
         currentMutableLiveData.value = response.current
         hourlyMutableLiveData.value = response.hourly
         geoDataMutableLiveData.value = GeoData(response.lat, response.lon, response.timezone, response.timezone_offset)
@@ -50,13 +50,13 @@ class WeatherViewModel @ViewModelInject constructor(@Assisted private val state:
     private fun onError(error: Throwable) {
         Log.e("ERROR", "get data failure: "+ error.message)
         print(error.message)
-        dataResultMutableLiveData.value = false
+        dataResultMutableLiveData.value = null
         currentMutableLiveData.value = null
         hourlyMutableLiveData.value = null
         geoDataMutableLiveData.value = null
     }
 
-    fun getDataResponse(): MutableLiveData<Boolean> {
+    fun getDataResponse(): MutableLiveData<DataResult> {
         return dataResultMutableLiveData
     }
 
